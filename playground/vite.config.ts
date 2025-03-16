@@ -5,7 +5,6 @@ export default defineConfig({
   plugins:[
     friendlyConsole({
       color:true,
-      
     }),
 
   ]

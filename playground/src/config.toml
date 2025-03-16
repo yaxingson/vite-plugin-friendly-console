@@ -1,0 +1,43 @@
+# This is an example of a TOML configuration file
+
+# String
+title = "TOML Example"
+
+# Number
+port = 8080
+
+# Boolean
+debug = true
+
+# Datetime
+created_at = 2023-10-05T12:34:56Z
+
+# Array
+colors = ["red", "green", "blue"]
+
+# Nested table (object)
+[database]
+  host = "localhost"
+  port = 5432
+  username = "admin"
+  password = "password123"
+  enabled = true
+
+# Array of tables (array of objects)
+[[servers]]
+  name = "server1"
+  ip = "192.168.1.1"
+  role = "primary"
+
+[[servers]]
+  name = "server2"
+  ip = "192.168.1.2"
+  role = "backup"
+
+# Multi-level nested table
+[owner]
+  name = "Tom Preston-Werner"
+  bio = "Creator of TOML"
+  [owner.contact]
+    email = "tom@example.com"
+    phone = "+1-234-5678"

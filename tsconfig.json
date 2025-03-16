@@ -2,7 +2,9 @@
   "compilerOptions":{
     "module":"es2015",
     "outDir":"./dist",
-    "moduleResolution":"node"
+    "moduleResolution":"node",
+    "declaration":true,
+    "types":["vite/client"]
   },
   "include":["./src/index.ts"]
 }
