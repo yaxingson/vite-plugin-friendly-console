@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite'
-import friendlyConsole from '../dist'
+import friendlyConsole from 'vite-plugin-friendly-console'
 
 export default defineConfig({
   plugins:[
     friendlyConsole({
-      color:true,
-    }),
-
+      onErrors() {
+        
+      }
+    })
+  
   ]
 })

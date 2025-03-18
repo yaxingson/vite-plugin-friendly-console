@@ -1,57 +1,28 @@
-import { resolve, dirname } from 'node:path'
-import { readFile } from 'node:fs/promises'
 import type { PluginOption } from 'vite'
-import type { ProgramNode } from 'rollup'
 
-interface FriendlyConsolePluginOption {
-  color?:boolean
+interface FriendlyConsoleOption {
+  clearConsole?:boolean
+  onErrors?:()=>void
 }
 
-function traverse(
-  ast: ProgramNode,
-  visitor:{[type:string]:(ast:any)=>void}) {
-  for(const node of Object.values(ast)) {
-    if(node && typeof node === 'object') {
-      visitor[node.type]?.(node)
-      traverse(node, visitor)
-    }
-  }
-}
+export default function friendlyConsolePlugin(option:FriendlyConsoleOption={}): PluginOption {
+  const {
+    clearConsole = true,
+  } = option
 
-export default function friendlyConsolePlugin(option:FriendlyConsolePluginOption): PluginOption {
+  console.log(option)
+
   return {
-    name:'friendly-console',
-    enforce:'pre',
-    resolveId(source, importer, options) {
-      if(source.endsWith('.toml')) {
-        return resolve(dirname(importer), source)
-      }
+    name:'vite-plugin-friendly-console',
+    apply:'build',
+    buildStart(options) {
+      
     },
-    async load(id, options) {
-      if(id.endsWith('.toml')) {
-        const content = await readFile(id, 'utf-8')
-        const config = {}
-        return `export default ${JSON.stringify(config)}`
-      }
+    buildEnd(error) {
+      
     },
-    transform(code, id, options) {
-      if(id.endsWith('main.ts')) {
-        const ast = this.parse(code, { jsx:false})
-        console.log(ast)
-        traverse(ast, {
-          ImportDeclaration(node) {
-            
-          }
-        })
-      }
-    },
-    configureServer(devServer) {
-      devServer.middlewares.use((req, res, next)=>{
-        next()
-      })
-    },
-    transformIndexHtml(html, context) {
-      return html
+    closeBundle(error) {
+      // console.clear()
     }
   }
 }
